@@ -13,18 +13,23 @@ const Primary = styled.button({
   background: "#2b2b2b",
   border: "1px solid transparent",
   borderRadius: "0.3rem",
+  cursor: "pointer",
+  padding: "1rem",
 });
 
 const Secondary = styled.button({
-  color: "#f8f8f8",
-  background: "#2b2b2b",
+  background: "transparent",
   borderRadius: "0.3rem",
+  padding: "1rem",
   border: "1px solid #2b2b2b",
+  width: "100%",
+  cursor: "pointer",
 });
 
 const Default = styled.button({
-  color: "#f8f8f8",
   background: "transparent",
+  padding: "1rem",
+  cursor: "pointer",
   borderRadius: "0.3rem",
   border: "1px solid transparent",
 });
