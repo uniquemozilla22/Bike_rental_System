@@ -26,6 +26,12 @@ const NavigationBarComponent = () => {
           </Tooltip>
           Login
         </Buttons>
+        <Buttons onClick={() => goToLogin()}>
+          <Tooltip title="Login">
+            <Login />
+          </Tooltip>
+          Login
+        </Buttons>
       </Actions>
     </Wrapper>
   );
@@ -44,7 +50,11 @@ const Logo = styled.div({
   height: "50px",
 });
 
-const Actions = styled.div();
+const Actions = styled.div({
+  display: "flex",
+  justifyContent: "center",
+  gap: "1rem",
+});
 
 const Image = styled.img({
   height: "50px",
