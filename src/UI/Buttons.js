@@ -15,6 +15,10 @@ const Primary = styled.button({
   borderRadius: "0.3rem",
   cursor: "pointer",
   padding: "1rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "0.5rem",
 });
 
 const Secondary = styled.button({
@@ -24,6 +28,10 @@ const Secondary = styled.button({
   border: "1px solid #2b2b2b",
   width: "100%",
   cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "0.5rem",
 });
 
 const Default = styled.button({
@@ -32,6 +40,10 @@ const Default = styled.button({
   cursor: "pointer",
   borderRadius: "0.3rem",
   border: "1px solid transparent",
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5rem",
+  justifyContent: "center",
 });
 
 export default Buttons;

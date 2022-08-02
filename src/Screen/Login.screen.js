@@ -1,9 +1,14 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
 import Buttons from "../UI/Buttons";
 import Input from "../UI/Input";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Headings, Paragraph } from "../UI/Typography";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import firebase from "../Database/firebase";
+import UserCollection, {
+  setUserCollection,
+} from "../Database/Users/User.collection";
 
 const LoginScreen = () => {
   return (
@@ -38,18 +43,48 @@ const Login = () => {
     </>
   );
 };
+
 const Register = () => {
   const navigation = useNavigate();
+  const [seePassword, setSeePassword] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    confirmation_password: "",
+  });
 
+  const createAccount = (email, password) => {
+    const datas = firebase.database().ref("users");
+    console.log(datas);
+  };
+  console.log(firebase);
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    const res = await createAccount(data.email, data.password);
+    console.log(res);
+  };
   return (
     <>
       <Headings>Register</Headings>
       <Paragraph>Register with email to the application</Paragraph>
-      <Form>
+      <Form onSubmit={onSubmitHandler}>
         <Input type={"email"} placeholder="Email" />
-        <Input type={"password"} placeholder="Password" />
-        <Input type={"password"} placeholder="Confirm Password" />
-        <Buttons primary>Submit</Buttons>
+        <Input
+          type={seePassword ? "text" : "password"}
+          placeholder="Password"
+        />
+        <Input
+          type={seePassword ? "text" : "password"}
+          placeholder="Confirm Password"
+        />
+        <SeePassword onClick={() => setSeePassword(!seePassword)}>
+          {!seePassword ? <VisibilityOff /> : <Visibility />}
+          Show Password
+        </SeePassword>
+        <Buttons type={"submit"} primary>
+          Submit
+        </Buttons>
       </Form>
       <Buttons secondary onClick={() => navigation("../")}>
         I have an Account
@@ -57,6 +92,14 @@ const Register = () => {
     </>
   );
 };
+
+const SeePassword = styled.div({
+  display: "flex",
+  gap: "1rem",
+  cursor: "pointer",
+  ":hover": {},
+});
+
 const Wrapper = styled.div({
   position: "relative",
   height: "100vh",
@@ -79,7 +122,5 @@ const Form = styled.form({
   gap: "1rem",
   margin: "1rem 0",
 });
-
-const Title = styled(Headings, {});
 
 export default LoginScreen;
