@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Hero Splendor",
+        "image": "https://www.rushlane.com/wp-content/uploads/2022/03/hero-splendor-electric-motorcycle-launch-price-3-1200x900.jpg",
+        "price": 2000,
+        "description": "The Hero Splendor+ is an entry level motorcycle manufactured in India by Hero motocorp. It has an electronic ignition and a tubular double cradle type frame with a 97.2 cc engine. The engine is based on the Honda Cub C100EX with a similar bore and stroke of 50 mm × 49.5 mm"
+    },
+    {
+        "id": 2,
+        "name": "Honda CBR 250  ",
+        "image": "https://honda.com.np/wp-content/uploads/product-catalog/motorcycles/cbr250r-gallery-1.jpg",
+        "price": 5000,
+        "description": "Honda CBR250R is a bike with the last known price range of Rs. 1,66,572 - Rs. 1,97,321 in India. It had 2 variants and 4 colours"
+    },
+    {
+        "id": 3,
+        "name": "Honda Unicorn 160",
+        "image": "https://honda.com.np/wp-content/uploads/product-catalog/motorcycles/Variant_Grey.png",
+        "price": 5000,
+        "description": "Honda Motorcycle & Scooter India and introduced in 2004. It was internally called the CBF150M. The engine was taken from the CRF150F post 2005 engine. The previous version of CRF150F was the old CBZ classic"
+    },
+    {
+        "id": 4,
+        "name": "Honda CBR 250  ",
+        "image": "https://honda.com.np/wp-content/uploads/product-catalog/motorcycles/cbr250r-gallery-1.jpg",
+        "price": 5000,
+        "description": "Honda CBR250R is a bike with the last known price range of Rs. 1,66,572 - Rs. 1,97,321 in India. It had 2 variants and 4 colours"
+    },
+    {
+        "id": 5,
+        "name": "Honda Unicorn 160",
+        "image": "https://honda.com.np/wp-content/uploads/product-catalog/motorcycles/Variant_Grey.png",
+        "price": 5000,
+        "description": "Honda Motorcycle & Scooter India and introduced in 2004. It was internally called the CBF150M. The engine was taken from the CRF150F post 2005 engine. The previous version of CRF150F was the old CBZ classic"
+    }
+]
