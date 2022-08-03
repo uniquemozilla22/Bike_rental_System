@@ -1,18 +1,52 @@
 import styled from "@emotion/styled";
-import React from "react";
+import { Close, FilterAltOutlined } from "@mui/icons-material";
+import { Drawer, Modal, Tooltip } from "@mui/material";
+import React, { useState } from "react";
 import ProductCardComponent from "../Components/ProductCard/ProductCard.comp";
+import Buttons from "../UI/Buttons";
+import { Headings, SubHeadings } from "../UI/Typography";
 
 const Bikelist = () => {
+  const [showFilter, setShowFilter] = useState(false);
+  const getBikes = () => {};
   return (
-    <Wrapper>
-      <ProductCardComponent />
-      <ProductCardComponent />
-      <ProductCardComponent />
-      <ProductCardComponent />
-      <ProductCardComponent />
-    </Wrapper>
+    <>
+      <Container>
+        <TitleContainer>
+          <Headings>Bike Lists</Headings>
+          <Tooltip title="Filter">
+            <FilterAltOutlined onClick={() => setShowFilter(true)} />
+          </Tooltip>
+        </TitleContainer>
+        <Wrapper>
+          <ProductCardComponent />
+          <ProductCardComponent />
+          <ProductCardComponent />
+          <ProductCardComponent />
+        </Wrapper>
+      </Container>
+      <Drawer
+        anchor={"right"}
+        open={showFilter}
+        onClose={() => setShowFilter(false)}
+      >
+        <TitleContainer>
+          <Headings>Filter.</Headings>
+          <Tooltip title="Close">
+            <Close onClick={() => setShowFilter(false)} />
+          </Tooltip>
+        </TitleContainer>
+      </Drawer>
+    </>
   );
 };
+
+const Container = styled.div({});
+
+const TitleContainer = styled.div({
+  display: "flex",
+  justifyContent: "space-between",
+});
 
 const Wrapper = styled.div({
   display: "grid",
