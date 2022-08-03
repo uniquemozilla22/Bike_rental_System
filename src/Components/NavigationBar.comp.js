@@ -9,6 +9,7 @@ const NavigationBarComponent = () => {
   const navigation = useNavigate();
 
   const goToLogin = () => navigation("./login");
+  const goToHome = () => navigation("./");
   return (
     <Wrapper>
       <Logo>
@@ -17,16 +18,11 @@ const NavigationBarComponent = () => {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Toptal_Logo.svg/1200px-Toptal_Logo.svg.png"
           }
           alt={"Logo"}
+          onClick={goToHome}
         />
       </Logo>
       <Actions>
         <Buttons secondary onClick={() => goToLogin()}>
-          <Tooltip title="Login">
-            <Login />
-          </Tooltip>
-          Login
-        </Buttons>
-        <Buttons onClick={() => goToLogin()}>
           <Tooltip title="Login">
             <Login />
           </Tooltip>
@@ -58,6 +54,7 @@ const Actions = styled.div({
 
 const Image = styled.img({
   height: "50px",
+  cursor: "pointer",
 });
 
 export default NavigationBarComponent;
