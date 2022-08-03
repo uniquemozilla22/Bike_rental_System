@@ -1,14 +1,22 @@
 import styled from "@emotion/styled";
 import { Close, FilterAltOutlined } from "@mui/icons-material";
 import { Drawer, Modal, Tooltip } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductCardComponent from "../Components/ProductCard/ProductCard.comp";
 import Buttons from "../UI/Buttons";
 import { Headings, SubHeadings } from "../UI/Typography";
+import bikeData from "../__mock__/BikeData.json";
 
 const Bikelist = () => {
   const [showFilter, setShowFilter] = useState(false);
-  const getBikes = () => {};
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getBikes();
+  }, []);
+  const getBikes = () => {
+    setData([...bikeData]);
+  };
   return (
     <>
       <Container>
@@ -19,10 +27,9 @@ const Bikelist = () => {
           </Tooltip>
         </TitleContainer>
         <Wrapper>
-          <ProductCardComponent />
-          <ProductCardComponent />
-          <ProductCardComponent />
-          <ProductCardComponent />
+          {data.map((bike, index) => (
+            <ProductCardComponent key={index} {...bike} />
+          ))}
         </Wrapper>
       </Container>
       <Drawer

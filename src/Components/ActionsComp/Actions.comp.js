@@ -19,7 +19,7 @@ const ActionsComponent = () => {
             <h3 class="card__heading">Show All Listings</h3>
           </div>
         </Link>
-        <a class="card" href="#">
+        <Link class="card" to="#">
           <div
             class="card__background"
             style={{
@@ -31,7 +31,20 @@ const ActionsComponent = () => {
             <p class="card__category">Category</p>
             <h3 class="card__heading">Booked Bikes</h3>
           </div>
-        </a>
+        </Link>
+        <Link class="card" to="#">
+          <div
+            class="card__background"
+            style={{
+              backgroundImage:
+                "url(https://cdn.dribbble.com/users/1428985/screenshots/6828417/1.jpg?compress=1&resize=400x300)",
+            }}
+          ></div>
+          <div class="card__content">
+            <p class="card__category">Category</p>
+            <h3 class="card__heading">Booked Bikes</h3>
+          </div>
+        </Link>
       </div>
     </section>
   );
