@@ -44,5 +44,5 @@ export const checkPassword = async (email, password) => {
     id = user.id;
   });
 
-  return { id };
+  return id;
 };

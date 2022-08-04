@@ -11,9 +11,7 @@ const LoginAction = (email, password) => {
       const isUser = await checkUser(email);
       if (!isUser) throw new Error("There is no User of that email");
 
-      const { id } = await checkPassword(email, password);
-
-      console.log(id);
+      const id = await checkPassword(email, password);
       dispatch({ type: LOGIN, payload: id });
       dispatch(
         showSuccessMessage(
