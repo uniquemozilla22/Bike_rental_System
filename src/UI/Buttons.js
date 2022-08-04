@@ -19,6 +19,11 @@ const Primary = styled.button({
   alignItems: "center",
   justifyContent: "center",
   gap: "0.5rem",
+  ":hover": {
+    color: "#2b2b2b",
+    background: "transparent",
+    border: "1px solid #2b2b2b",
+  },
 });
 
 const Secondary = styled.button({
@@ -32,6 +37,11 @@ const Secondary = styled.button({
   alignItems: "center",
   justifyContent: "center",
   gap: "0.5rem",
+  ":hover": {
+    color: "#f8f8f8",
+    background: "#2b2b2b",
+    border: "1px solid transparent",
+  },
 });
 
 const Default = styled.button({
