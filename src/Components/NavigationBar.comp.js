@@ -10,6 +10,7 @@ const NavigationBarComponent = () => {
 
   const goToLogin = () => navigation("./login");
   const goToHome = () => navigation(".");
+
   return (
     <Wrapper>
       <Logo>

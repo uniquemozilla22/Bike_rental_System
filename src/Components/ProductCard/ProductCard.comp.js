@@ -1,6 +1,9 @@
 import { BookOnlineOutlined } from "@mui/icons-material";
 import React from "react";
 import "./ProductCard.css";
+import { Link } from "react-router-dom";
+import Buttons from "../../UI/Buttons";
+import { Tooltip } from "@mui/material";
 
 const ProductCardComponent = ({ id, name, image, price, description }) => {
   return (
@@ -9,9 +12,6 @@ const ProductCardComponent = ({ id, name, image, price, description }) => {
         <img src={image} alt={name} class="img-responsive" />
       </div>
       <div class="wsk-cp-text">
-        <div class="category">
-          <span>Ethnic</span>
-        </div>
         <div class="title-product">
           <h3>{name}</h3>
         </div>
@@ -28,9 +28,11 @@ const ProductCardComponent = ({ id, name, image, price, description }) => {
             </span>
           </div>
           <div class="wcf-right">
-            <a href="#" class="buy-btn">
-              <BookOnlineOutlined />
-            </a>
+            <Tooltip title="Book this bike">
+              <Buttons primary>
+                <BookOnlineOutlined />
+              </Buttons>
+            </Tooltip>
           </div>
         </div>
       </div>

@@ -53,6 +53,9 @@ const Container = styled.div({});
 const TitleContainer = styled.div({
   display: "flex",
   justifyContent: "space-between",
+  padding: "1rem 0",
+  gap: "1rem",
+  alignItems: "center",
 });
 
 const Wrapper = styled.div({
