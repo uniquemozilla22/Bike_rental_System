@@ -5,13 +5,14 @@ import HomeScreen from "./Screen/Home.screen";
 import Layout from "./Components/Layout";
 import Bikelist from "./Screen/Bikelist.screen";
 import { useSelector } from "react-redux";
+import NofoundScreen from "./Screen/Notfound.screen";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.user.token);
   const navigation = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) navigation("/login");
+    // if (!isLoggedIn) navigation("/login");
   }, [isLoggedIn, navigation]);
 
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/bikes/*" element={<Bikelist />} />
           </>
         )}
+        <Route path="*" element={<NofoundScreen />} />
       </Routes>
     </Layout>
   );

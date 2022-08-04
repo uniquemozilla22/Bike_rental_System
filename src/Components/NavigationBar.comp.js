@@ -1,14 +1,16 @@
 import styled from "@emotion/styled";
 import { Login } from "@mui/icons-material";
-import { Tooltip } from "@mui/material";
+import { Avatar, Tooltip } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Buttons from "../UI/Buttons";
+import { useSelector } from "react-redux";
 
 const NavigationBarComponent = () => {
   const navigation = useNavigate();
-
+  const isLoggedIn = useSelector((state) => state.user.token);
   const goToLogin = () => navigation("./login");
+  const goToProfile = () => navigation("./profile");
   const goToHome = () => navigation(".");
 
   return (
@@ -23,12 +25,20 @@ const NavigationBarComponent = () => {
         />
       </Logo>
       <Actions>
-        <Buttons secondary onClick={() => goToLogin()}>
-          <Tooltip title="Login">
-            <Login />
-          </Tooltip>
-          Login
-        </Buttons>
+        {isLoggedIn === null ? (
+          <Buttons secondary onClick={() => goToLogin()}>
+            <Tooltip title="Login">
+              <Login />
+            </Tooltip>
+            Login
+          </Buttons>
+        ) : (
+          <Buttons onClick={() => goToLogin()}>
+            <Tooltip title="Profile">
+              <Avatar />
+            </Tooltip>
+          </Buttons>
+        )}
       </Actions>
     </Wrapper>
   );
