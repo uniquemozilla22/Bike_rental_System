@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import AlertComponent from "./Alert.comp";
 import NavigationBarComponent from "./NavigationBar.comp";
 
 const Layout = (props) => {
@@ -7,6 +8,7 @@ const Layout = (props) => {
     <>
       <NavigationBarComponent />
       <LayoutWrapper>{props.children}</LayoutWrapper>
+      <AlertComponent />
     </>
   );
 };

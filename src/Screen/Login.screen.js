@@ -10,6 +10,13 @@ import UserCollection, {
   setUserCollection,
 } from "../Database/Users/User.collection";
 
+import { useDispatch } from "react-redux";
+import {
+  showErrorMessage,
+  showSuccessMessage,
+} from "../store/Actions/Alert.action";
+import RegisterUser from "../store/Actions/Register.action";
+
 const LoginScreen = () => {
   return (
     <Wrapper>
@@ -53,29 +60,41 @@ const Register = () => {
     confirmation_password: "",
   });
 
-  const createAccount = (email, password) => {
-    const datas = firebase.database().ref("users");
-    console.log(datas);
-  };
-  console.log(firebase);
+  const dispatch = useDispatch();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const res = await createAccount(data.email, data.password);
-    console.log(res);
+    if (data.password === data.confirmation_password) {
+      await dispatch(RegisterUser(data.email, data.password));
+    } else {
+      dispatch(
+        showErrorMessage(
+          "Validation Error",
+          "Password and Confirm Password are not matching"
+        )
+      );
+    }
   };
   return (
     <>
       <Headings>Register</Headings>
       <Paragraph>Register with email to the application</Paragraph>
       <Form onSubmit={onSubmitHandler}>
-        <Input type={"email"} placeholder="Email" />
         <Input
-          type={seePassword ? "text" : "password"}
-          placeholder="Password"
+          type={"email"}
+          placeholder="Email"
+          onChange={(e) => setData({ ...data, email: e.target.value })}
         />
         <Input
           type={seePassword ? "text" : "password"}
+          placeholder="Password"
+          onChange={(e) => setData({ ...data, password: e.target.value })}
+        />
+        <Input
+          type={seePassword ? "text" : "password"}
+          onChange={(e) =>
+            setData({ ...data, confirmation_password: e.target.value })
+          }
           placeholder="Confirm Password"
         />
         <SeePassword onClick={() => setSeePassword(!seePassword)}>

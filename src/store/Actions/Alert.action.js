@@ -8,20 +8,32 @@ import {
 
 export const showSuccessMessage = (title, message) => {
   return (dispatch) =>
-    dispatch({ type: SUCCESS_ALERT, payload: { title, message } });
+    dispatch({
+      type: SUCCESS_ALERT,
+      payload: { title, message, severity: "success" },
+    });
 };
 
 export const showErrorMessage = (title, message) => {
   return (dispatch) =>
-    dispatch({ type: ERROR_ALERT, payload: { title, message } });
+    dispatch({
+      type: ERROR_ALERT,
+      payload: { title, message, severity: "error" },
+    });
 };
 export const showWarningMessage = (title, message) => {
   return (dispatch) =>
-    dispatch({ type: WARNING_ALERT, payload: { title, message } });
+    dispatch({
+      type: WARNING_ALERT,
+      payload: { title, message, severity: "warning" },
+    });
 };
 export const showInfoMessage = (title, message) => {
   return (dispatch) =>
-    dispatch({ type: INFO_ALERT, payload: { title, message } });
+    dispatch({
+      type: INFO_ALERT,
+      payload: { title, message, severity: "info" },
+    });
 };
 
 export const hideAlertMessage = () => {
