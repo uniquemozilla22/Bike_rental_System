@@ -16,6 +16,7 @@ import {
   showSuccessMessage,
 } from "../store/Actions/Alert.action";
 import RegisterUser from "../store/Actions/Register.action";
+import LoginAction from "../store/Actions/Login.action";
 
 const LoginScreen = () => {
   return (
@@ -32,6 +33,17 @@ const LoginScreen = () => {
 
 const Login = () => {
   const navigation = useNavigate();
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  const [seePassword, setSeePassword] = useState(false);
+  const dispatch = useDispatch();
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    await dispatch(LoginAction(data.email, data.password));
+  };
 
   return (
     <>
@@ -39,9 +51,21 @@ const Login = () => {
       <Paragraph>
         Login to the application with the credentials provided
       </Paragraph>
-      <Form>
-        <Input type={"email"} placeholder="Email" />
-        <Input type={"password"} placeholder="Password" />
+      <Form onSubmit={onSubmitHandler}>
+        <Input
+          type={"email"}
+          placeholder="Email"
+          onChange={(e) => setData({ ...data, email: e.target.value })}
+        />
+        <Input
+          type={seePassword ? "text" : "password"}
+          placeholder="Password"
+          onChange={(e) => setData({ ...data, password: e.target.value })}
+        />
+        <SeePassword onClick={() => setSeePassword(!seePassword)}>
+          {!seePassword ? <VisibilityOff /> : <Visibility />}
+          Show Password
+        </SeePassword>
         <Buttons primary>Submit</Buttons>
       </Form>
       <Buttons secondary onClick={() => navigation("../register")}>
@@ -116,13 +140,14 @@ const SeePassword = styled.div({
   display: "flex",
   gap: "1rem",
   cursor: "pointer",
-  ":hover": {},
+  ":hover": {
+    textDecoration: "underline",
+  },
 });
 
 const Wrapper = styled.div({
   position: "relative",
-  height: "100vh",
-  width: "100vw",
+  minHeight: "80vh",
 });
 
 const Container = styled.div({

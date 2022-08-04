@@ -29,3 +29,20 @@ export const setUserCollection = (data) =>
     ...data,
     created: Timestamp.now(),
   });
+
+export const checkPassword = async (email, password) => {
+  const users = await getDocs(
+    query(
+      userCollection,
+      where("email", "==", `${email}`),
+      where("password", "==", password)
+    )
+  );
+
+  let id = null;
+  users.forEach((user) => {
+    id = user.id;
+  });
+
+  return { id };
+};

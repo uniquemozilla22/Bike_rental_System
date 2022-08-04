@@ -5,9 +5,11 @@ import {
 import { LOGIN } from "../constants";
 import { showErrorMessage, showSuccessMessage } from "./Alert.action";
 import ErrorHandle from "./ErrorHandle.action";
+import { hideLoading, showLoading } from "./Loading.action";
 
 const RegisterUser = (email, password) => {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
       const isUser = await checkUser(email);
       if (isUser) throw new Error("User Already Exists");
@@ -19,6 +21,8 @@ const RegisterUser = (email, password) => {
           email + " has been logged in Successfully"
         )
       );
+      dispatch(hideLoading());
+
       return data;
     } catch (error) {
       ErrorHandle("Register Error", error, dispatch);
