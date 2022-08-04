@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Close } from "@mui/icons-material";
 import { Modal, Tooltip } from "@mui/material";
 import React, { useState } from "react";
+import AddBikeForm from "../../Components/AddBike/AddBike.comp";
 import ProductCardComponent from "../../Components/ProductCard/ProductCard.comp";
 import Buttons from "../../UI/Buttons";
 import Input from "../../UI/Input";
@@ -16,10 +17,6 @@ const ManagerBikeScreen = () => {
         <Header>
           <Title>
             <Headings>Bike Lists</Headings>
-            <Paragraph>
-              See the lists of bikes you can customize and add the bikes to the
-              application.
-            </Paragraph>
           </Title>
           <Buttons primary onClick={() => setShowModal(true)}>
             Add Bike
@@ -31,65 +28,6 @@ const ManagerBikeScreen = () => {
         <AddBikeForm onClose={() => setShowModal(false)} />
       </Modal>
     </>
-  );
-};
-
-const AddBikeForm = ({ onClose }) => {
-  const [data, setData] = useState({
-    name: null,
-    image: null,
-    price: null,
-    description: null,
-  });
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
-  return (
-    <Box>
-      <Title>
-        <SubHeadings>Add Bike</SubHeadings>
-        <Tooltip title="Close">
-          <Close onClick={onClose} />
-        </Tooltip>
-      </Title>
-      <Form onSubmit={submitHandler}>
-        <ProductCardComponent
-          name={data.name || "<name here>"}
-          image={data.image || "<image here>"}
-          price={data.price || 0}
-          description={data.description || "<description part goes here>"}
-        />
-        <Input
-          type="text"
-          placeholder="Bike Name"
-          onChange={(e) => setData({ ...data, name: e.target.value })}
-          required
-        />
-        <Input
-          type="text"
-          placeholder="Price"
-          onChange={(e) => setData({ ...data, price: e.target.value })}
-          required
-        />
-        <Input
-          type="text"
-          placeholder="Image URL"
-          onChange={(e) => setData({ ...data, image: e.target.value })}
-          required
-        />
-        <Input
-          type="textarea"
-          placeholder="Description"
-          columns={2}
-          onChange={(e) => setData({ ...data, description: e.target.value })}
-          required
-        />
-        <Buttons primary type="submit">
-          Submit
-        </Buttons>
-      </Form>
-    </Box>
   );
 };
 

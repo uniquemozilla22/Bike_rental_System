@@ -6,6 +6,7 @@ import {
   query,
   Timestamp,
   where,
+  doc,
 } from "firebase/firestore";
 import firebase from "../firebase";
 
@@ -22,6 +23,12 @@ export const checkUser = async (email) => {
 
   return exists;
 };
+
+export const checkUserTypeByID = async (id) => {
+  const users = await getDoc(doc(firebase, "users", id));
+  return users.data().isManager;
+};
+
 export const getUserCollection = () => {};
 
 export const setUserCollection = (data) =>
