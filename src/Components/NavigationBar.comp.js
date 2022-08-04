@@ -33,7 +33,7 @@ const NavigationBarComponent = () => {
             Login
           </Buttons>
         ) : (
-          <Buttons onClick={() => goToLogin()}>
+          <Buttons onClick={() => goToProfile()}>
             <Tooltip title="Profile">
               <Avatar />
             </Tooltip>

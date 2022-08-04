@@ -14,7 +14,7 @@ const RegisterUser = (email, password) => {
       const isUser = await checkUser(email);
       if (isUser) throw new Error("User Already Exists");
       const data = await setUserCollection({ email, password });
-      dispatch({ type: LOGIN, payload: data.id });
+      dispatch({ type: LOGIN, payload: { id: data.id, isManager: false } });
       dispatch(
         showSuccessMessage(
           "Login Success",

@@ -27,6 +27,8 @@ export const getUserCollection = () => {};
 export const setUserCollection = (data) =>
   addDoc(userCollection, {
     ...data,
+    type: "user",
+    isManager: false,
     created: Timestamp.now(),
   });
 
@@ -40,9 +42,11 @@ export const checkPassword = async (email, password) => {
   );
 
   let id = null;
+  let isManager;
   users.forEach((user) => {
     id = user.id;
+    isManager = user.data().isManager;
   });
 
-  return id;
+  return { id, isManager };
 };

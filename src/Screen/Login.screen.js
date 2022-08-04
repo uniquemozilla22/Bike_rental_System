@@ -42,8 +42,13 @@ const Login = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const isLoggedIn = await dispatch(LoginAction(data.email, data.password));
-    if (isLoggedIn) navigation("/");
+    const logged = await dispatch(LoginAction(data.email, data.password));
+    if (logged) {
+      if (logged.isManager) navigation("/manager");
+      else {
+        navigation("/");
+      }
+    }
   };
 
   return (

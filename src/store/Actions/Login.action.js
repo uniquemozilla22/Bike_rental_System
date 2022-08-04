@@ -11,8 +11,8 @@ const LoginAction = (email, password) => {
       const isUser = await checkUser(email);
       if (!isUser) throw new Error("There is no User of that email");
 
-      const id = await checkPassword(email, password);
-      dispatch({ type: LOGIN, payload: id });
+      const { id, isManager } = await checkPassword(email, password);
+      dispatch({ type: LOGIN, payload: { id, isManager } });
       dispatch(
         showSuccessMessage(
           "Login Success",
@@ -20,7 +20,7 @@ const LoginAction = (email, password) => {
         )
       );
       dispatch(hideLoading());
-      return true;
+      return { isLoggedIn: true, isManager };
     } catch (error) {
       ErrorHandle("Login Error !", error, dispatch);
       return false;
