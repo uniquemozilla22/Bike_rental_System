@@ -20,8 +20,10 @@ const LoginAction = (email, password) => {
         )
       );
       dispatch(hideLoading());
+      return true;
     } catch (error) {
       ErrorHandle("Login Error !", error, dispatch);
+      return false;
     }
   };
 };

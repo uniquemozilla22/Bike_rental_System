@@ -23,9 +23,10 @@ const RegisterUser = (email, password) => {
       );
       dispatch(hideLoading());
 
-      return data;
+      return true;
     } catch (error) {
       ErrorHandle("Register Error", error, dispatch);
+      return false;
     }
   };
 };

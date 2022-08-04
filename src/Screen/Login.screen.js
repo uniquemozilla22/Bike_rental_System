@@ -42,7 +42,8 @@ const Login = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    await dispatch(LoginAction(data.email, data.password));
+    const isLoggedIn = await dispatch(LoginAction(data.email, data.password));
+    if (isLoggedIn) navigation("/");
   };
 
   return (
@@ -89,7 +90,10 @@ const Register = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (data.password === data.confirmation_password) {
-      await dispatch(RegisterUser(data.email, data.password));
+      const isLoggedIn = await dispatch(
+        RegisterUser(data.email, data.password)
+      );
+      if (isLoggedIn) navigation("/");
     } else {
       dispatch(
         showErrorMessage(

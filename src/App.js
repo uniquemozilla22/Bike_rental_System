@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoginScreen from "./Screen/Login.screen";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import HomeScreen from "./Screen/Home.screen";
 import Layout from "./Components/Layout";
 import Bikelist from "./Screen/Bikelist.screen";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isLoggedIn = useSelector((state) => state.user.token);
+  const navigation = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) navigation("/login");
+  }, [isLoggedIn, navigation]);
+
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/login/*" element={<LoginScreen />} />
-        <Route path="/bikes/*" element={<Bikelist />} />
+        {!isLoggedIn && <Route path="/login/*" element={<LoginScreen />} />}
+
+        {isLoggedIn && (
+          <>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/bikes/*" element={<Bikelist />} />
+          </>
+        )}
       </Routes>
     </Layout>
   );
