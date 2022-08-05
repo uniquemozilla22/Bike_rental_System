@@ -2,12 +2,25 @@ import styled from "@emotion/styled";
 import { Close, FilterAltOutlined } from "@mui/icons-material";
 import { Drawer, Modal, Tooltip } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import ProductCardComponent from "../Components/ProductCard/ProductCard.comp";
 import Buttons from "../UI/Buttons";
 import { Headings, SubHeadings } from "../UI/Typography";
 import bikeData from "../__mock__/BikeData.json";
+import SingleBikeScreen from "./SingleBike.screen";
 
 const Bikelist = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<BikeAllListContainer />} />
+        <Route path=":id" element={<SingleBikeScreen />} />
+      </Routes>
+    </>
+  );
+};
+
+const BikeAllListContainer = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [data, setData] = useState([]);
 

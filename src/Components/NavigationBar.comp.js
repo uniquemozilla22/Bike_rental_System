@@ -9,9 +9,10 @@ import { useSelector } from "react-redux";
 const NavigationBarComponent = () => {
   const navigation = useNavigate();
   const isLoggedIn = useSelector((state) => state.user.token);
+  const isManager = useSelector((state) => state.user.isManager);
   const goToLogin = () => navigation("./login");
   const goToProfile = () => navigation("./profile");
-  const goToHome = () => navigation(".");
+  const goToHome = () => (isManager ? navigation("/manager") : navigation("."));
 
   return (
     <Wrapper>

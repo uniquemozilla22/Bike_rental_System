@@ -1,13 +1,18 @@
-import { BookOnlineOutlined } from "@mui/icons-material";
+import { BookOnlineOutlined, Edit } from "@mui/icons-material";
 import React from "react";
 import "./ProductCard.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Buttons from "../../UI/Buttons";
 import { Tooltip } from "@mui/material";
+import { useSelector } from "react-redux/es/exports";
 
 const ProductCardComponent = ({ id, name, image, price, description }) => {
+  const isManager = useSelector((state) => state.user.isManager);
+  const navigation = useNavigate();
+
+  const goToProduct = () => navigation("./" + id);
   return (
-    <div class="wsk-cp-product">
+    <div class="wsk-cp-product" onClick={goToProduct}>
       <div class="wsk-cp-img">
         <img src={image} alt={name} class="img-responsive" />
       </div>
@@ -28,11 +33,19 @@ const ProductCardComponent = ({ id, name, image, price, description }) => {
             </span>
           </div>
           <div class="wcf-right">
-            <Tooltip title="Book this bike">
-              <Buttons primary>
-                <BookOnlineOutlined />
-              </Buttons>
-            </Tooltip>
+            {isManager ? (
+              <Tooltip title={"Edit " + name}>
+                <Buttons primary>
+                  <Edit />
+                </Buttons>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Book this bike">
+                <Buttons primary>
+                  <BookOnlineOutlined />
+                </Buttons>
+              </Tooltip>
+            )}
           </div>
         </div>
       </div>

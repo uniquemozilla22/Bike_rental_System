@@ -8,7 +8,7 @@ const ManagerScreen = () => {
     <Routes>
       <Route path="/" element={<ManagerHomeScreen />} />
       <Route path="/users" element={<ManagerBikeScreen />} />
-      <Route path="/bikes" element={<ManagerBikeScreen />} />
+      <Route path="/bikes/*" element={<ManagerBikeScreen />} />
       <Route path="/bookings" element={<h1>Manager Booking Screen</h1>} />
     </Routes>
   );

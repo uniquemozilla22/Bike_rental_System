@@ -1,4 +1,11 @@
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  Timestamp,
+} from "firebase/firestore";
 import firebase from "../firebase";
 
 export const bikeCollection = collection(firebase, "bikes");
@@ -8,3 +15,10 @@ export const setBikesData = (data) =>
     ...data,
     created: Timestamp.now(),
   });
+
+export const getAllBikes = () => getDocs(bikeCollection);
+
+export const getBikeById = async (id) => {
+  const bike = await getDoc(doc(firebase, "bikes", id));
+  return { ...bike.data(), id: bike.id };
+};
