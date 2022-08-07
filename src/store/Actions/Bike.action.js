@@ -10,7 +10,6 @@ import { checkUserTypeByID } from "../../Database/Users/User.collection";
 
 export const addBikeData = (data) => {
   return async (dispatch, getState) => {
-    console.log(data);
     dispatch(showLoading());
     try {
       const isManager = await checkUserTypeByID(getState().user.token);
@@ -24,7 +23,7 @@ export const addBikeData = (data) => {
         )
       );
       dispatch(hideLoading());
-      return true;
+      return { ...data, id: bike.id };
     } catch (error) {
       ErrorHandle("Add Bike Data Error", error, dispatch);
       return false;

@@ -5,8 +5,9 @@ import { getBikeByID } from "../../store/Actions/Bike.action";
 import Buttons from "../../UI/Buttons";
 import { Headings, Paragraph, SubHeadings } from "../../UI/Typography";
 import { useDispatch, useSelector } from "react-redux";
+import { hideLoading, showLoading } from "../../store/Actions/Loading.action";
 
-const SingleProductComp = ({ name, description, price }) => {
+const SingleProductComp = () => {
   const { id } = useParams();
   const isManager = useSelector((state) => state.user.isManager);
   const dispatch = useDispatch();
@@ -16,41 +17,46 @@ const SingleProductComp = ({ name, description, price }) => {
 
   useEffect(() => fetchDataById, []);
 
+  useEffect(() => {
+    if (!bikeData) dispatch(showLoading());
+    else dispatch(hideLoading());
+  }, [bikeData]);
+
   const fetchDataById = async () => {
     const data = await dispatch(getBikeByID(id));
     setBikeData({ ...data });
   };
-  return bikeData ? (
-    <Wrapper>
-      <ImageContainer>
-        <Image src={bikeData.image} alt={bikeData.name} />
-      </ImageContainer>
-      <Content>
-        <Headings>{bikeData.name}</Headings>
-        <SubHeadings>
-          {parseInt(bikeData.price).toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-        </SubHeadings>
-        <Paragraph>Model: {bikeData.model}</Paragraph>
-        <Paragraph>Color:{bikeData.color}</Paragraph>
-        <Paragraph>Rating:{bikeData.rating}out of 5</Paragraph>
+  return (
+    bikeData && (
+      <Wrapper>
+        <ImageContainer>
+          <Image src={bikeData.image} alt={bikeData.name} />
+        </ImageContainer>
+        <Content>
+          <Headings>{bikeData.name}</Headings>
+          <SubHeadings>
+            {parseInt(bikeData.price).toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+          </SubHeadings>
+          <Paragraph>Model: {bikeData.model}</Paragraph>
+          <Paragraph>Color:{bikeData.color}</Paragraph>
+          <Paragraph>Rating:{bikeData.rating}out of 5</Paragraph>
 
-        {isManager ? (
-          <ActionContainer>
-            <Buttons primary>Edit {bikeData.name}</Buttons>
-            <Buttons>Remove {bikeData.name}</Buttons>
-          </ActionContainer>
-        ) : (
-          <ActionContainer>
-            <Buttons primary>Book {bikeData.name}</Buttons>
-          </ActionContainer>
-        )}
-      </Content>
-    </Wrapper>
-  ) : (
-    <SubHeadings>Loading...</SubHeadings>
+          {isManager ? (
+            <ActionContainer>
+              <Buttons primary>Edit {bikeData.name}</Buttons>
+              <Buttons>Remove {bikeData.name}</Buttons>
+            </ActionContainer>
+          ) : (
+            <ActionContainer>
+              <Buttons primary>Book {bikeData.name}</Buttons>
+            </ActionContainer>
+          )}
+        </Content>
+      </Wrapper>
+    )
   );
 };
 

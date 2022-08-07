@@ -27,9 +27,11 @@ const BikeAllListContainer = () => {
   useEffect(() => {
     getBikes();
   }, []);
+
   const getBikes = () => {
     setData([...bikeData]);
   };
+
   return (
     <>
       <Container>

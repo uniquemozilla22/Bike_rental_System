@@ -30,14 +30,18 @@ const ManagerBikeScreen = () => {
 
   useEffect(() => fetchData, []);
 
-  const submitHandler = async (data) => {
-    const bike = await dispatch(addBikeData({ ...data }));
-    console.log(bike.data());
+  const AddBike = (newData) => {
+    let updatedBike = [...data, newData];
+    setData([...updatedBike]);
+  };
+
+  const submitHandler = async (userData) => {
+    const bike = await dispatch(addBikeData({ ...userData }));
+    AddBike(bike);
   };
 
   const fetchData = async () => {
     const bikes = await dispatch(getAllBikeData());
-    console.log(bikes);
     setData([...bikes]);
   };
   return (

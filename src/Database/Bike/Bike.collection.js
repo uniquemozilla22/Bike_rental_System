@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -22,3 +23,5 @@ export const getBikeById = async (id) => {
   const bike = await getDoc(doc(firebase, "bikes", id));
   return { ...bike.data(), id: bike.id };
 };
+
+export const deleteBikeById = (id) => deleteDoc(doc(firebase, "bikes", id));
