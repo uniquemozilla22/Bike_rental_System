@@ -16,14 +16,17 @@ const getItem = (key) =>
   }, "");
 
 const useCookie = (key, defaultValue) => {
-  const getCookie = () => getItem(key) || defaultValue;
+  const getCookie = () => getItem(key) || defaultValue || JSON.stringify({});
   const [cookie, setCookie] = useState(getCookie());
-
   const updateCookie = (value, numberOfDays) => {
-    setCookie(value);
-    setItem(key, value, numberOfDays);
+    setCookie(JSON.stringify(value));
+    setItem(key, JSON.stringify(value), numberOfDays || 1);
+  };
+  const eraseCookie = () => {
+    document.cookie = key + "=; Max-Age=0";
   };
 
-  return [cookie, updateCookie];
+  return [JSON.parse(cookie), updateCookie, eraseCookie];
 };
+
 export default useCookie;

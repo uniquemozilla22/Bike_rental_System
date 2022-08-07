@@ -8,6 +8,11 @@ import { showSuccessMessage } from "./Alert.action";
 import ErrorHandle from "./ErrorHandle.action";
 import { hideLoading, showLoading } from "./Loading.action";
 import { checkUserTypeByID } from "../../Database/Users/User.collection";
+import {
+  FETCH_BIKE_DATA_ALL,
+  FETCH_BIKE_DATA_BY_ID,
+  POST_BIKE_DATA,
+} from "../constants";
 
 export const addBikeData = (data) => {
   return async (dispatch, getState) => {
@@ -16,7 +21,7 @@ export const addBikeData = (data) => {
       const isManager = await checkUserTypeByID(getState().user.token);
       if (!isManager) throw new Error("Not a Manager ! Login as a Manager");
       const bike = await setBikesData({ ...data });
-      console.log(bike.id);
+      dispatch({ type: POST_BIKE_DATA });
       dispatch(
         showSuccessMessage(
           "Added Bike Success",
@@ -38,6 +43,8 @@ export const getAllBikeData = () => {
     try {
       const bike = await getAllBikes();
       let bikeData = [];
+      dispatch({ type: FETCH_BIKE_DATA_ALL });
+
       bike.forEach((rentalBike, index) => {
         bikeData = [...bikeData, { ...rentalBike.data(), id: rentalBike.id }];
       });
@@ -55,6 +62,7 @@ export const getBikeByID = (id) => {
     dispatch(showLoading());
     try {
       const bike = await getBikeById(id);
+      dispatch({ type: FETCH_BIKE_DATA_BY_ID });
       dispatch(hideLoading());
       return bike;
     } catch (e) {

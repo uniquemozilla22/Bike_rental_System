@@ -7,6 +7,7 @@ import Bikelist from "./Screen/Bikelist.screen";
 import { useSelector } from "react-redux";
 import NofoundScreen from "./Screen/Notfound.screen";
 import ManagerScreen from "./Screen/Manager/Manager.screen";
+import useCookie from "./hooks/useCookie";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.user.token);
@@ -15,7 +16,7 @@ function App() {
 
   useEffect(() => {
     if (!isLoggedIn) navigation("/login");
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigation]);
 
   return (
     <Layout>

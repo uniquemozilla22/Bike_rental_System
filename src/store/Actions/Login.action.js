@@ -1,10 +1,10 @@
 import { checkPassword, checkUser } from "../../Database/Users/User.collection";
-import { LOGIN } from "../constants";
+import { LOGIN, LOGOUT } from "../constants";
 import { showSuccessMessage } from "./Alert.action";
 import ErrorHandle from "./ErrorHandle.action";
 import { hideLoading, showLoading } from "./Loading.action";
 
-const LoginAction = (email, password) => {
+const LoginAction = (email, password, setCookie) => {
   return async (dispatch) => {
     dispatch(showLoading());
     try {
@@ -19,12 +19,19 @@ const LoginAction = (email, password) => {
           email + " has been logged in Successfully"
         )
       );
+      setCookie({ id, isManager });
       dispatch(hideLoading());
       return { isLoggedIn: true, isManager };
     } catch (error) {
       ErrorHandle("Login Error !", error, dispatch);
       return false;
     }
+  };
+};
+
+export const Logout = () => {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT });
   };
 };
 

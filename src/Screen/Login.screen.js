@@ -5,10 +5,6 @@ import Input from "../UI/Input";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Headings, Paragraph } from "../UI/Typography";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import firebase from "../Database/firebase";
-import UserCollection, {
-  setUserCollection,
-} from "../Database/Users/User.collection";
 
 import { useDispatch } from "react-redux";
 import {
@@ -17,7 +13,7 @@ import {
 } from "../store/Actions/Alert.action";
 import RegisterUser from "../store/Actions/Register.action";
 import LoginAction from "../store/Actions/Login.action";
-
+import useCookie from "../hooks/useCookie";
 const LoginScreen = () => {
   return (
     <Wrapper>
@@ -39,10 +35,13 @@ const Login = () => {
   });
   const [seePassword, setSeePassword] = useState(false);
   const dispatch = useDispatch();
+  const [cookie, setCookie] = useCookie("token");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const logged = await dispatch(LoginAction(data.email, data.password));
+    const logged = await dispatch(
+      LoginAction(data.email, data.password, setCookie)
+    );
     if (logged) {
       if (logged.isManager) navigation("/manager");
       else {
