@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getBikeByID } from "../../store/Actions/Bike.action";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteBike, getBikeByID } from "../../store/Actions/Bike.action";
 import Buttons from "../../UI/Buttons";
 import { Headings, Paragraph, SubHeadings } from "../../UI/Typography";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,20 +12,20 @@ const SingleProductComp = () => {
   const isManager = useSelector((state) => state.user.isManager);
   const dispatch = useDispatch();
   const [bikeData, setBikeData] = useState(null);
-
-  console.log(id);
+  const navigation = useNavigate();
 
   useEffect(() => fetchDataById, []);
-
-  useEffect(() => {
-    if (!bikeData) dispatch(showLoading());
-    else dispatch(hideLoading());
-  }, [bikeData]);
 
   const fetchDataById = async () => {
     const data = await dispatch(getBikeByID(id));
     setBikeData({ ...data });
   };
+
+  const handleDelete = async () => {
+    const data = await dispatch(deleteBike(id));
+    if (data) navigation("../");
+  };
+
   return (
     bikeData && (
       <Wrapper>
@@ -40,14 +40,14 @@ const SingleProductComp = () => {
               currency: "USD",
             })}
           </SubHeadings>
-          <Paragraph>Model: {bikeData.model}</Paragraph>
-          <Paragraph>Color:{bikeData.color}</Paragraph>
-          <Paragraph>Rating:{bikeData.rating}out of 5</Paragraph>
+          <Paragraph>Description: {bikeData.description}</Paragraph>
 
           {isManager ? (
             <ActionContainer>
               <Buttons primary>Edit {bikeData.name}</Buttons>
-              <Buttons>Remove {bikeData.name}</Buttons>
+              <Buttons onClick={(e) => handleDelete()}>
+                Remove {bikeData.name}
+              </Buttons>
             </ActionContainer>
           ) : (
             <ActionContainer>

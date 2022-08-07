@@ -24,4 +24,6 @@ export const getBikeById = async (id) => {
   return { ...bike.data(), id: bike.id };
 };
 
-export const deleteBikeById = (id) => deleteDoc(doc(firebase, "bikes", id));
+export const deleteBikeById = (id) => {
+  return deleteDoc(doc(firebase, "bikes", id));
+};

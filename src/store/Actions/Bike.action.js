@@ -1,4 +1,5 @@
 import {
+  deleteBikeById,
   getAllBikes,
   getBikeById,
   setBikesData,
@@ -58,6 +59,26 @@ export const getBikeByID = (id) => {
       return bike;
     } catch (e) {
       ErrorHandle("Fetch Bike Data Error", e, dispatch);
+      return false;
+    }
+  };
+};
+
+export const deleteBike = (id) => {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    try {
+      await deleteBikeById(id);
+      dispatch(hideLoading());
+      dispatch(
+        showSuccessMessage(
+          "Deleted Bike! ",
+          " The Item has been successfully removed from the system"
+        )
+      );
+      return true;
+    } catch (e) {
+      ErrorHandle("Delete Bike Data Error", e, dispatch);
       return false;
     }
   };
