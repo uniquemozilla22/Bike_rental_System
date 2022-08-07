@@ -38,6 +38,7 @@ const ManagerBikeScreen = () => {
   const submitHandler = async (userData) => {
     const bike = await dispatch(addBikeData({ ...userData }));
     AddBike(bike);
+    if (bike) setShowModal(false);
   };
 
   const fetchData = async () => {
