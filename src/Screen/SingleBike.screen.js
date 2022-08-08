@@ -2,6 +2,7 @@ import React from "react";
 import SingleProductComp from "../Components/SingleProduct/SingleProduct.comp";
 
 import styled from "@emotion/styled";
+import { Modal } from "@mui/material";
 
 const SingleBikeScreen = () => {
   return (

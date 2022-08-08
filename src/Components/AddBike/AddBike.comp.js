@@ -6,13 +6,17 @@ import Buttons from "../../UI/Buttons";
 import Input from "../../UI/Input";
 import { SubHeadings } from "../../UI/Typography";
 import ProductCardComponent from "../ProductCard/ProductCard.comp";
-const AddBikeForm = ({ onClose, handleSubmition }) => {
-  const [data, setData] = useState({
-    name: null,
-    image: null,
-    price: null,
-    description: null,
-  });
+const AddBikeForm = ({ onClose, handleSubmition, editingData }) => {
+  const [data, setData] = useState(
+    editingData
+      ? { ...editingData }
+      : {
+          name: null,
+          image: null,
+          price: null,
+          description: null,
+        }
+  );
 
   return (
     <Box>
@@ -29,6 +33,7 @@ const AddBikeForm = ({ onClose, handleSubmition }) => {
             image={data.image || "<image here>"}
             price={data.price || 0}
             description={data.description || "<description part goes here>"}
+            showModal
           />
         </ProductDisplay>
 
@@ -38,18 +43,21 @@ const AddBikeForm = ({ onClose, handleSubmition }) => {
             placeholder="Bike Name"
             onChange={(e) => setData({ ...data, name: e.target.value })}
             required
+            value={data.name}
           />
           <Input
             type="number"
             placeholder="Price"
             onChange={(e) => setData({ ...data, price: e.target.value })}
             required
+            value={data.price}
           />
           <Input
             type="text"
             placeholder="Image URL"
             onChange={(e) => setData({ ...data, image: e.target.value })}
             required
+            value={data.image}
           />
           <Input
             type="textarea"
@@ -57,6 +65,7 @@ const AddBikeForm = ({ onClose, handleSubmition }) => {
             row={5}
             onChange={(e) => setData({ ...data, description: e.target.value })}
             required
+            value={data.description}
           />
           <Buttons primary onClick={(e) => handleSubmition(data)}>
             Submit

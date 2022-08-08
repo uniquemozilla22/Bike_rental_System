@@ -13,10 +13,11 @@ function App() {
   const isLoggedIn = useSelector((state) => state.user.token);
   const isManager = useSelector((state) => state.user.isManager);
   const navigation = useNavigate();
+  const cookie = useCookie();
 
   useEffect(() => {
-    if (!isLoggedIn) navigation("/login");
-  }, [isLoggedIn, navigation]);
+    if (!cookie && !isLoggedIn) navigation("/login");
+  }, [cookie, isLoggedIn, navigation]);
 
   return (
     <Layout>
