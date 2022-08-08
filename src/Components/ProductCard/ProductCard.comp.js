@@ -6,7 +6,14 @@ import Buttons from "../../UI/Buttons";
 import { Tooltip } from "@mui/material";
 import { useSelector } from "react-redux/es/exports";
 
-const ProductCardComponent = ({ id, name, image, price, description }) => {
+const ProductCardComponent = ({
+  id,
+  name,
+  image,
+  price,
+  description,
+  showModal,
+}) => {
   const isManager = useSelector((state) => state.user.isManager);
   const navigation = useNavigate();
 
@@ -16,6 +23,7 @@ const ProductCardComponent = ({ id, name, image, price, description }) => {
       <div class="wsk-cp-img">
         <img src={image} alt={name} class="img-responsive" />
       </div>
+
       <div class="wsk-cp-text">
         <div class="title-product">
           <h3>{name}</h3>
@@ -33,19 +41,20 @@ const ProductCardComponent = ({ id, name, image, price, description }) => {
             </span>
           </div>
           <div class="wcf-right">
-            {isManager ? (
-              <Tooltip title={"Edit " + name}>
-                <Buttons primary>
-                  <Edit />
-                </Buttons>
-              </Tooltip>
-            ) : (
-              <Tooltip title="Book this bike">
-                <Buttons primary>
-                  <BookOnlineOutlined />
-                </Buttons>
-              </Tooltip>
-            )}
+            {!showModal &&
+              (isManager ? (
+                <Tooltip title={"Edit " + name}>
+                  <Buttons primary>
+                    <Edit />
+                  </Buttons>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Book this bike">
+                  <Buttons primary>
+                    <BookOnlineOutlined />
+                  </Buttons>
+                </Tooltip>
+              ))}
           </div>
         </div>
       </div>
