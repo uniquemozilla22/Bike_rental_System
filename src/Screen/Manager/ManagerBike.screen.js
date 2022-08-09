@@ -22,6 +22,7 @@ const BikeScreen = () => {
     </>
   );
 };
+
 const ManagerBikeScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();

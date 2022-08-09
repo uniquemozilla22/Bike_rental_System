@@ -29,7 +29,7 @@ export const checkUserTypeByID = async (id) => {
   return users.data().isManager;
 };
 
-export const getUserCollection = () => {};
+export const getUserCollection = () => getDocs(userCollection);
 
 export const setUserCollection = (data) =>
   addDoc(userCollection, {
