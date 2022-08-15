@@ -16,6 +16,7 @@ export const HIDE_LOADING = "HIDE_LOADING";
 // Fetch Data
 export const FETCH_BIKE_DATA_BY_ID = "FETCH_BIKE_DATA_BY_ID";
 export const FETCH_BIKE_DATA_ALL = "FETCH_BIKE_DATA_ALL";
+export const FETCH_USERS_DATA_ALL = "FETCH_USERS_DATA_ALL";
 
 // Add Data
 export const POST_BIKE_DATA = "POST_BIKE_DATA";

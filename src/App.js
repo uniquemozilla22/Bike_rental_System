@@ -13,16 +13,18 @@ function App() {
   const isLoggedIn = useSelector((state) => state.user.token);
   const isManager = useSelector((state) => state.user.isManager);
   const navigation = useNavigate();
-  const cookie = useCookie();
+  const cookie = useCookie("token");
 
   useEffect(() => {
-    if (!cookie && !isLoggedIn) navigation("/login");
+    if (!cookie || !isLoggedIn) navigation("/login");
   }, [cookie, isLoggedIn, navigation]);
 
   return (
     <Layout>
       <Routes>
-        {!isLoggedIn && <Route path="/login/*" element={<LoginScreen />} />}
+        {(!cookie || !isLoggedIn) && (
+          <Route path="/login/*" element={<LoginScreen />} />
+        )}
         {isLoggedIn && !isManager && (
           <>
             <Route path="/" element={<HomeScreen />} />
