@@ -20,7 +20,6 @@ const TableComponent = ({ data }) => {
           <TableRow key={index}>
             {console.log(item)}
             {item.map((tableData, i) => {
-              console.log(typeof tableData);
               if (typeof tableData === "object") return "null";
               return <TableData key={index}>{data[Headings[index]]}</TableData>;
             })}

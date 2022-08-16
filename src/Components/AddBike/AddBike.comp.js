@@ -67,7 +67,7 @@ const AddBikeForm = ({ onClose, handleSubmition, editingData }) => {
             required
             value={data.description}
           />
-          <Buttons primary onClick={(e) => handleSubmition(data)}>
+          <Buttons type="submit" primary onClick={(e) => handleSubmition(data)}>
             Submit
           </Buttons>
         </Forms>

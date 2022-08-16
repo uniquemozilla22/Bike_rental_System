@@ -7,10 +7,7 @@ import { Headings, Paragraph } from "../UI/Typography";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { useDispatch } from "react-redux";
-import {
-  showErrorMessage,
-  showSuccessMessage,
-} from "../store/Actions/Alert.action";
+import { showErrorMessage } from "../store/Actions/Alert.action";
 import RegisterUser from "../store/Actions/Register.action";
 import LoginAction from "../store/Actions/Login.action";
 import useCookie from "../hooks/useCookie";

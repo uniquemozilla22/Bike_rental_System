@@ -3,6 +3,7 @@ import {
   getAllBikes,
   getBikeById,
   setBikesData,
+  updateDocumentBike,
 } from "../../Database/Bike/Bike.collection";
 import { showSuccessMessage } from "./Alert.action";
 import ErrorHandle from "./ErrorHandle.action";
@@ -87,6 +88,28 @@ export const deleteBike = (id) => {
       return true;
     } catch (e) {
       ErrorHandle("Delete Bike Data Error", e, dispatch);
+      return false;
+    }
+  };
+};
+
+export const updateBikeData = (id, data) => {
+  return async (dispatch, getState) => {
+    dispatch(showLoading());
+    try {
+      const isManager = await checkUserTypeByID(getState().user.token);
+      if (!isManager) throw new Error("Not a Manager ! Login as a Manager");
+      await updateDocumentBike(id, data);
+      dispatch(
+        showSuccessMessage(
+          "Updated " + data.name,
+          `${data.name} has been updated with your given parameters.`
+        )
+      );
+      dispatch(hideLoading());
+      return true;
+    } catch (e) {
+      ErrorHandle("Update Bike Data Error", e, dispatch);
       return false;
     }
   };

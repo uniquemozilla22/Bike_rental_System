@@ -5,7 +5,9 @@ import {
   doc,
   getDoc,
   getDocs,
+  setDoc,
   Timestamp,
+  updateDoc,
 } from "firebase/firestore";
 import firebase from "../firebase";
 
@@ -27,3 +29,6 @@ export const getBikeById = async (id) => {
 export const deleteBikeById = (id) => {
   return deleteDoc(doc(firebase, "bikes", id));
 };
+
+export const updateDocumentBike = (id, data) =>
+  updateDoc(doc(firebase, "bikes", id), { ...data });

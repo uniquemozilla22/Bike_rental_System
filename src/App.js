@@ -16,13 +16,13 @@ function App() {
   const cookie = useCookie("token");
 
   useEffect(() => {
-    if (!cookie || !isLoggedIn) navigation("/login");
+    if (!cookie && !isLoggedIn) navigation("/login");
   }, [cookie, isLoggedIn, navigation]);
 
   return (
     <Layout>
       <Routes>
-        {(!cookie || !isLoggedIn) && (
+        {!cookie && !isLoggedIn && (
           <Route path="/login/*" element={<LoginScreen />} />
         )}
         {isLoggedIn && !isManager && (

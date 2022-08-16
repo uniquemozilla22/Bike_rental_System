@@ -1,13 +1,17 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteBike, getBikeByID } from "../../store/Actions/Bike.action";
+import {
+  deleteBike,
+  getBikeByID,
+  updateBikeData,
+} from "../../store/Actions/Bike.action";
 import Buttons from "../../UI/Buttons";
 import { Headings, Paragraph, SubHeadings } from "../../UI/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { hideLoading, showLoading } from "../../store/Actions/Loading.action";
 import { Modal } from "@mui/material";
 import AddBikeForm from "../AddBike/AddBike.comp";
+import { showWarningMessage } from "../../store/Actions/Alert.action";
 
 const SingleProductComp = () => {
   const { id } = useParams();
@@ -28,6 +32,28 @@ const SingleProductComp = () => {
     const data = await dispatch(deleteBike(id));
     if (data) navigation("../");
   };
+
+  const handleUpdate = async (data) => {
+    const { id, created, ...rest } = data;
+    if (isNotChanged) {
+      dispatch(
+        showWarningMessage(
+          "No Data Changed",
+          " Modify a Data to submit the data"
+        )
+      );
+      return;
+    }
+    console.log(rest);
+    const response = await dispatch(updateBikeData(id, rest));
+    if (response) setBikeData({ ...rest });
+  };
+
+  const isNotChanged = (rest, data) =>
+    rest.description === data.description &&
+    rest.name === data.name &&
+    rest.price === data.price &&
+    rest.image === data.image;
 
   return (
     bikeData && (
@@ -68,7 +94,7 @@ const SingleProductComp = () => {
         >
           <AddBikeForm
             onClose={() => setShowEditBikeModal(false)}
-            handleSubmition
+            handleSubmition={handleUpdate}
             editingData={bikeData}
           />
         </Modal>
@@ -81,6 +107,11 @@ const Wrapper = styled.div({
   display: "flex",
   justifyContent: "center",
   gap: "1rem",
+  // flexWrap: "wrap",
+
+  "@media (max-width:1510px)": {
+    flexDirection: "column",
+  },
 });
 const ImageContainer = styled.div({
   flex: "1",
@@ -101,6 +132,9 @@ const ActionContainer = styled.div({
 const Image = styled.img({
   border: "1px solid #2b2b2b",
   borderRadius: "5px",
+  "@media (max-width:1510px)": {
+    maxHeight: "500px",
+  },
 });
 
 export default SingleProductComp;
