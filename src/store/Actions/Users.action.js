@@ -17,10 +17,7 @@ export const GetAllUsers = () => {
       requestedUsers.forEach((user) => {
         userData = [...userData, { ...user.data(), id: user.id }];
       });
-      console.log(
-        "🚀 ~ file: Users.action.js ~ line 21 ~ requestedUsers.forEach ~ requestedUsers",
-        userData
-      );
+
       dispatch({ type: FETCH_USERS_DATA_ALL });
       dispatch(hideLoading());
       return userData;

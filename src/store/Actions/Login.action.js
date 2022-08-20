@@ -12,6 +12,8 @@ const LoginAction = (email, password, setCookie) => {
       if (!isUser) throw new Error("There is no User of that email");
 
       const { id, isManager } = await checkPassword(email, password);
+
+      console.log(id, isManager);
       dispatch({ type: LOGIN, payload: { id, isManager } });
       dispatch(
         showSuccessMessage(

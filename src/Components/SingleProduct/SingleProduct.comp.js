@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   deleteBike,
@@ -21,21 +21,21 @@ const SingleProductComp = () => {
   const navigation = useNavigate();
   const [showEditBikeModal, setShowEditBikeModal] = useState(false);
 
-  useEffect(() => fetchDataById, []);
-
-  const fetchDataById = async () => {
+  const fetchDataById = useCallback(async () => {
     const data = await dispatch(getBikeByID(id));
-    setBikeData({ ...data });
-  };
+    if (data) setBikeData({ ...data });
+  }, [dispatch, id]);
 
-  const handleDelete = async () => {
-    const data = await dispatch(deleteBike(id));
+  useEffect(() => fetchDataById, [fetchDataById]);
+
+  const handleDelete = () => {
+    const data = dispatch(deleteBike(id));
     if (data) navigation("../");
   };
 
   const handleUpdate = async (data) => {
     const { id, created, ...rest } = data;
-    if (isNotChanged) {
+    if (isNotChanged(rest, bikeData)) {
       dispatch(
         showWarningMessage(
           "No Data Changed",
@@ -46,7 +46,10 @@ const SingleProductComp = () => {
     }
     console.log(rest);
     const response = await dispatch(updateBikeData(id, rest));
-    if (response) setBikeData({ ...rest });
+    if (response) {
+      setBikeData({ ...rest });
+      setShowEditBikeModal(false);
+    }
   };
 
   const isNotChanged = (rest, data) =>
@@ -107,15 +110,16 @@ const Wrapper = styled.div({
   display: "flex",
   justifyContent: "center",
   gap: "1rem",
-  // flexWrap: "wrap",
 
   "@media (max-width:1510px)": {
     flexDirection: "column",
   },
 });
+
 const ImageContainer = styled.div({
   flex: "1",
 });
+
 const Content = styled.div({
   flex: "2",
   display: "flex",
@@ -123,6 +127,7 @@ const Content = styled.div({
   flexDirection: "column",
   gap: "2rem",
 });
+
 const ActionContainer = styled.div({
   display: "flex",
   gap: "2rem",

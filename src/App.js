@@ -16,26 +16,27 @@ function App() {
   const cookie = useCookie("token");
 
   useEffect(() => {
-    if (!cookie && !isLoggedIn) navigation("/login");
-  }, [cookie, isLoggedIn, navigation]);
+    if (!cookie) navigation("/login");
+  }, [cookie, navigation]);
 
   return (
     <Layout>
       <Routes>
-        {!cookie && !isLoggedIn && (
-          <Route path="/login/*" element={<LoginScreen />} />
-        )}
-        {isLoggedIn && !isManager && (
+        <Route path="/login/*" element={<LoginScreen />} />
+        {isLoggedIn ? (
           <>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/bikes/*" element={<Bikelist />} />
+            {isManager ? (
+              <>
+                <Route path="/manager/*" element={<ManagerScreen />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<HomeScreen />} />
+                <Route path="/bikes/*" element={<Bikelist />} />
+              </>
+            )}
           </>
-        )}
-        {isLoggedIn && isManager && (
-          <>
-            <Route path="/manager/*" element={<ManagerScreen />} />
-          </>
-        )}
+        ) : null}
 
         <Route path="*" element={<NofoundScreen />} />
       </Routes>
