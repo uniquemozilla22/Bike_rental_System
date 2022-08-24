@@ -57,51 +57,51 @@ const SingleProductComp = () => {
     rest.price === data.price &&
     rest.image === data.image;
 
-  return (
-    bikeData && (
-      <>
-        <Wrapper>
-          <ImageContainer>
-            <Image src={bikeData.image} alt={bikeData.name} />
-          </ImageContainer>
-          <Content>
-            <Headings>{bikeData.name}</Headings>
-            <SubHeadings>
-              {parseInt(bikeData.price).toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </SubHeadings>
-            <Paragraph>Description: {bikeData.description}</Paragraph>
+  return bikeData ? (
+    <>
+      <Wrapper>
+        <ImageContainer>
+          <Image src={bikeData.image} alt={bikeData.name} />
+        </ImageContainer>
+        <Content>
+          <Headings>{bikeData.name}</Headings>
+          <SubHeadings>
+            {parseInt(bikeData.price).toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+          </SubHeadings>
+          <Paragraph>Description: {bikeData.description}</Paragraph>
 
-            {isManager ? (
-              <ActionContainer>
-                <Buttons primary onClick={(e) => setShowEditBikeModal(true)}>
-                  Edit {bikeData.name}
-                </Buttons>
-                <Buttons onClick={(e) => handleDelete()}>
-                  Remove {bikeData.name}
-                </Buttons>
-              </ActionContainer>
-            ) : (
-              <ActionContainer>
-                <Buttons primary>Book {bikeData.name}</Buttons>
-              </ActionContainer>
-            )}
-          </Content>
-        </Wrapper>
-        <Modal
-          open={showEditBikeModal}
+          {isManager ? (
+            <ActionContainer>
+              <Buttons primary onClick={(e) => setShowEditBikeModal(true)}>
+                Edit {bikeData.name}
+              </Buttons>
+              <Buttons onClick={(e) => handleDelete()}>
+                Remove {bikeData.name}
+              </Buttons>
+            </ActionContainer>
+          ) : (
+            <ActionContainer>
+              <Buttons primary>Book {bikeData.name}</Buttons>
+            </ActionContainer>
+          )}
+        </Content>
+      </Wrapper>
+      <Modal
+        open={showEditBikeModal}
+        onClose={() => setShowEditBikeModal(false)}
+      >
+        <AddBikeForm
           onClose={() => setShowEditBikeModal(false)}
-        >
-          <AddBikeForm
-            onClose={() => setShowEditBikeModal(false)}
-            handleSubmition={handleUpdate}
-            editingData={bikeData}
-          />
-        </Modal>
-      </>
-    )
+          handleSubmition={handleUpdate}
+          editingData={bikeData}
+        />
+      </Modal>
+    </>
+  ) : (
+    <h1>Loading...</h1>
   );
 };
 
