@@ -32,12 +32,12 @@ const Login = () => {
   });
   const [seePassword, setSeePassword] = useState(false);
   const dispatch = useDispatch();
-  const [cookie, setCookie] = useCookie("token");
+  const [cookie, setCookie, logout] = useCookie("token");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const logged = await dispatch(
-      LoginAction(data.email, data.password, setCookie)
+      LoginAction(data.email, data.password, setCookie, logout)
     );
     if (logged) {
       if (logged.isManager) navigation("/manager");
@@ -87,12 +87,13 @@ const Register = () => {
   });
 
   const dispatch = useDispatch();
+  const [cookie, setCookie, logout] = useCookie("token");
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (data.password === data.confirmation_password) {
       const isLoggedIn = await dispatch(
-        RegisterUser(data.email, data.password)
+        RegisterUser(data.email, data.password, setCookie, logout)
       );
       if (isLoggedIn) navigation("/");
     } else {

@@ -1,17 +1,19 @@
 import styled from "@emotion/styled";
-import { Login } from "@mui/icons-material";
+import { Login, LogoutOutlined } from "@mui/icons-material";
 import { Avatar, Tooltip } from "@mui/material";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Buttons from "../UI/Buttons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Logout } from "../store/Actions/Login.action";
 
 const NavigationBarComponent = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigate();
   const isLoggedIn = useSelector((state) => state.user.token);
   const isManager = useSelector((state) => state.user.isManager);
   const goToLogin = () => navigation("./login");
-  const goToProfile = () => navigation("./profile");
+  const Logoutfromapp = () => dispatch(Logout(navigation));
   const goToHome = () => (isManager ? navigation("/manager") : navigation("."));
 
   return (
@@ -39,10 +41,11 @@ const NavigationBarComponent = () => {
             Login
           </Buttons>
         ) : (
-          <Buttons onClick={() => goToProfile()}>
-            <Tooltip title="Profile">
-              <Avatar />
+          <Buttons secondary onClick={() => Logoutfromapp()}>
+            <Tooltip title="Login">
+              <LogoutOutlined />
             </Tooltip>
+            Logout
           </Buttons>
         )}
       </Actions>

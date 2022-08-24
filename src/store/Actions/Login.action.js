@@ -4,7 +4,8 @@ import { showSuccessMessage } from "./Alert.action";
 import ErrorHandle from "./ErrorHandle.action";
 import { hideLoading, showLoading } from "./Loading.action";
 
-const LoginAction = (email, password, setCookie) => {
+const LoginAction = (email, password, setCookie, logout) => {
+  console.log("Logged Action");
   return async (dispatch) => {
     dispatch(showLoading());
     try {
@@ -14,7 +15,7 @@ const LoginAction = (email, password, setCookie) => {
       const { id, isManager } = await checkPassword(email, password);
 
       console.log(id, isManager);
-      dispatch({ type: LOGIN, payload: { id, isManager } });
+      dispatch({ type: LOGIN, payload: { id, isManager, logout } });
       dispatch(
         showSuccessMessage(
           "Login Success",
@@ -31,9 +32,14 @@ const LoginAction = (email, password, setCookie) => {
   };
 };
 
-export const Logout = () => {
+export const Logout = (goTo) => {
   return (dispatch) => {
-    dispatch({ type: LOGOUT });
+    dispatch(showLoading());
+    setTimeout(() => {
+      dispatch({ type: LOGOUT });
+      goTo("/login");
+      dispatch(hideLoading());
+    }, 3000);
   };
 };
 
