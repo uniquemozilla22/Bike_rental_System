@@ -44,7 +44,6 @@ const SingleProductComp = () => {
       );
       return;
     }
-    console.log(rest);
     const response = await dispatch(updateBikeData(id, rest));
     if (response) {
       setBikeData({ ...rest });

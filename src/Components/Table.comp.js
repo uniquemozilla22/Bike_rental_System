@@ -1,26 +1,24 @@
 import styled from "@emotion/styled";
-import { Delete, Edit, EditAttributesOutlined } from "@mui/icons-material";
-import { MenuItem, Select, Tooltip } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Delete, Edit } from "@mui/icons-material";
+import { Modal, Tooltip } from "@mui/material";
+import React, { useEffect, useState, useMemo } from "react";
 import Buttons from "../UI/Buttons";
 
-const TableComponent = ({ data }) => {
+const TableComponent = ({ data, openModal }) => {
   const [headings, setHeadings] = useState([]);
-  console.table(data);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const formatData = () => {
+  const formatData = useMemo(() => {
     let Headings = [];
     data.forEach((user, index) => {
       const { created, ...rest } = user;
       Headings[index] = Object.keys(rest);
     });
     setHeadings([...Headings]);
-  };
+  }, [data]);
 
-  useEffect(() => formatData(), [data, formatData]);
+  useEffect(() => formatData, [data, formatData]);
 
   return (
-    <>
+    <TableContainer>
       <Table>
         <TableRow>
           <TableHeadingIndex> S.N </TableHeadingIndex>
@@ -34,27 +32,13 @@ const TableComponent = ({ data }) => {
             <TableRow key={i}>
               <TableDataIndex>{i}</TableDataIndex>
               {headings[0]?.map((userData, index) => {
-                if (typeof user[userData] === "boolean") {
-                  console.log(user[userData]);
-                  return (
-                    <TableData key={index}>
-                      <Selection>
-                        <option value={user[userData]}>
-                          {user[userData].toString()}
-                        </option>
-                        <option value={!user[userData]}>
-                          {(!user[userData]).toString()}
-                        </option>
-                      </Selection>
-                    </TableData>
-                  );
-                } else {
-                  return <TableData key={index}>{user[userData]}</TableData>;
-                }
+                return (
+                  <TableData key={index}>{user[userData].toString()}</TableData>
+                );
               })}
               <TableDataActions>
                 <Tooltip title={"Edit " + user.email}>
-                  <Buttons>
+                  <Buttons onClick={(e) => openModal(user)}>
                     <Edit />
                   </Buttons>
                 </Tooltip>
@@ -68,7 +52,7 @@ const TableComponent = ({ data }) => {
           );
         })}
       </Table>
-    </>
+    </TableContainer>
   );
 };
 
@@ -76,10 +60,16 @@ const Table = styled.table({
   width: "100%",
   borderCollapse: "seperate",
   borderSpacing: "1rem",
+  overflowX: "scroll",
 });
 const TableRow = styled.tr({});
 const TableData = styled.td({
   textAlign: "center",
+});
+
+const TableContainer = styled.div({
+  maxWidth: "100% ",
+  overflowX: "scroll",
 });
 const TableDataActions = styled.td({
   display: "flex",
@@ -87,15 +77,6 @@ const TableDataActions = styled.td({
   justifyContent: "flex-end",
 });
 
-const Selection = styled.select({
-  padding: "1rem",
-  textTransform: "capitalize",
-  alignContent: "interit",
-  width: "100%",
-  "& option": {
-    padding: "1rem",
-  },
-});
 const TableDataIndex = styled.td({
   textAlign: "start",
 });

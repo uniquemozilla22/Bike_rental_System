@@ -63,7 +63,6 @@ export const getBikeByID = (id) => {
     dispatch(showLoading());
     try {
       const bike = await getBikeById(id);
-      console.log("bike on dispatch", bike);
       dispatch({ type: FETCH_BIKE_DATA_BY_ID });
       dispatch(hideLoading());
       return bike;

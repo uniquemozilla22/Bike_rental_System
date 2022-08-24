@@ -7,6 +7,7 @@ import {
   Timestamp,
   where,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import firebase from "../firebase";
 
@@ -57,3 +58,6 @@ export const checkPassword = async (email, password) => {
 
   return { id, isManager };
 };
+
+export const updateUsersById = (id, data) =>
+  updateDoc(doc(firebase, "users", id), { ...data });
