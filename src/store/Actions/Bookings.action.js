@@ -33,16 +33,15 @@ export const bookaBike = (bookedby, bookingfor, bookedupTo) => {
 };
 
 export const verifyBookedBike = (user, bike) => {
-  console.log("called verifyBookedBike", user, bike);
   return async (dispatch, getState) => {
     dispatch(showLoading());
-
     try {
       const isManager = await checkUserTypeByID(getState().user.token);
       if (isManager) {
         throw new Error("Managers are not allowed to book a vechicle");
       }
       const data = await verifyBooking(user, bike);
+      console.log(data);
       if (!!data) {
         dispatch(
           showInfoMessage(

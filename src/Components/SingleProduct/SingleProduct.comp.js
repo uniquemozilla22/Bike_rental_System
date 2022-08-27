@@ -44,11 +44,12 @@ const SingleProductComp = () => {
   const verifyUserBooking = useCallback(async () => {
     console.log("called verify user booking");
     const verify = await dispatch(verifyBookedBike(user, id));
+    console.log(verify);
     if (!verify) return;
     setIsAlreadyBooked({ ...verify });
   }, [dispatch, id, user]);
 
-  useEffect(() => verifyUserBooking[verifyUserBooking]);
+  useEffect(() => verifyUserBooking, [verifyUserBooking]);
   useEffect(() => fetchDataById, [fetchDataById]);
 
   const handleDelete = () => {
@@ -233,7 +234,7 @@ const Image = styled.img({
   border: "1px solid #2b2b2b",
   borderRadius: "5px",
   "@media (max-width:1510px)": {
-    maxHeight: "500px",
+    maxWidth: "100%",
   },
 });
 
