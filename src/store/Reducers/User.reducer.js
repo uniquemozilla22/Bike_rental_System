@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../constants";
+import { LOGIN, LOGOUT, REHYDRATE_LOGIN } from "../constants";
 
 const initialState = {
   token: null,
@@ -8,6 +8,14 @@ const initialState = {
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
+    case REHYDRATE_LOGIN: {
+      return {
+        ...state,
+        token: action.payload.id,
+        isManager: action.payload.isManager,
+        logout: action.payload.logout,
+      };
+    }
     case LOGIN: {
       return {
         ...state,

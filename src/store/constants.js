@@ -1,6 +1,7 @@
 export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
 export const LOGOUT = "LOGOUT";
+export const REHYDRATE_LOGIN = "REHYDRATE_LOGIN";
 
 // ALert
 export const SUCCESS_ALERT = "SUCCESS_ALERT";
@@ -20,3 +21,4 @@ export const FETCH_USERS_DATA_ALL = "FETCH_USERS_DATA_ALL";
 
 // Add Data
 export const POST_BIKE_DATA = "POST_BIKE_DATA";
+export const POST_BOOK_BIKE_DATA = "POST_BOOK_BIKE_DATA";

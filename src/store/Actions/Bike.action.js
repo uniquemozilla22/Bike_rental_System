@@ -67,7 +67,7 @@ export const getBikeByID = (id) => {
       dispatch(hideLoading());
       return bike;
     } catch (e) {
-      ErrorHandle("Fetch Bike Data Error", e, dispatch);
+      ErrorHandle("Fetch Bike Data by ID Error", e, dispatch);
       return false;
     }
   };

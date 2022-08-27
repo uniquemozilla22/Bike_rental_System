@@ -4,7 +4,7 @@ import AlertComponent from "./Alert.comp";
 import LoaderComponent from "./Loader.comp";
 import NavigationBarComponent from "./NavigationBar.comp";
 import useCookie from "../hooks/useCookie";
-import { LOGIN } from "../store/constants";
+import { REHYDRATE_LOGIN } from "../store/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -19,15 +19,9 @@ const Layout = (props) => {
   const updateCookie = useCallback(() => {
     if (!!id) {
       if (!token) {
-        console.log("cookie but no user");
-        console.log(id, token);
-        dispatch({ type: LOGIN, payload: { id, isManager, logout } });
-        isManager ? navigation("/manager") : navigation("/");
-      } else {
-        console.log("there is user");
+        dispatch({ type: REHYDRATE_LOGIN, payload: { id, isManager, logout } });
       }
     } else {
-      console.log("no User");
       navigation("/login");
     }
   }, [id, isManager]);
