@@ -21,7 +21,6 @@ import {
   bookaBike,
   verifyBookedBike,
 } from "../../store/Actions/Bookings.action";
-import { verifyBooking } from "../../Database/Bookings/Bookings.collection";
 
 const SingleProductComp = () => {
   const { id } = useParams();
@@ -42,7 +41,6 @@ const SingleProductComp = () => {
   }, [dispatch, id]);
 
   const verifyUserBooking = useCallback(async () => {
-    console.log("called verify user booking");
     const verify = await dispatch(verifyBookedBike(user, id));
     console.log(verify);
     if (!verify) return;
