@@ -8,6 +8,9 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./store/store";
 
+const baseURL =
+  process.env.NODE_ENV === "PROD" ? "/Bike_rental_System" : "/bike_rental";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const queryClient = new QueryClient();
@@ -16,7 +19,7 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={baseURL}>
           <App />
         </BrowserRouter>
       </Provider>

@@ -21,8 +21,6 @@ const Layout = (props) => {
       if (!token) {
         dispatch({ type: REHYDRATE_LOGIN, payload: { id, isManager, logout } });
       }
-    } else {
-      navigation("/login");
     }
   }, [id, isManager]);
 
