@@ -9,7 +9,9 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 
 const baseURL =
-  process.env.NODE_ENV !== "DEV" ? "/Bike_rental_System" : "/bike_rental";
+  process.env.NODE_ENV !== "development"
+    ? "/Bike_rental_System"
+    : "/bike_rental";
 
 console.log(process.env.NODE_ENV);
 

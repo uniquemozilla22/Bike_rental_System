@@ -63,10 +63,12 @@ export const getBikeByID = (id) => {
     dispatch(showLoading());
     try {
       const bike = await getBikeById(id);
+      console.log("bike", bike);
       dispatch({ type: FETCH_BIKE_DATA_BY_ID });
       dispatch(hideLoading());
       return bike;
     } catch (e) {
+      console.log(e);
       ErrorHandle("Fetch Bike Data by ID Error", e, dispatch);
       return false;
     }
