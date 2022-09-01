@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -17,17 +16,13 @@ console.log(process.env.NODE_ENV);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const queryClient = new QueryClient();
-
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <BrowserRouter basename={baseURL}>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <BrowserRouter basename={baseURL}>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

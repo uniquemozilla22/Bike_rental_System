@@ -14,7 +14,8 @@ const LoginAction = (email, password, setCookie, logout) => {
 
       const { id, isManager } = await checkPassword(email, password);
 
-      console.log(id, isManager);
+      if (!id && !isManager)
+        throw new Error("Password Incorrect ! Enter a valid password");
       dispatch({ type: LOGIN, payload: { id, isManager, logout } });
       dispatch(
         showSuccessMessage(

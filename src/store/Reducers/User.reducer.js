@@ -9,6 +9,7 @@ const initialState = {
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case REHYDRATE_LOGIN: {
+      console.log(action.payload.logout);
       return {
         ...state,
         token: action.payload.id,

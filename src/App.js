@@ -7,24 +7,44 @@ import Bikelist from "./Screen/Bikelist.screen";
 import { useSelector } from "react-redux";
 import NofoundScreen from "./Screen/Notfound.screen";
 import ManagerScreen from "./Screen/Manager/Manager.screen";
+import ManagerAuthLayout from "./Components/Manager.auth";
+import LoggedInAuthLayout from "./Components/Logged.auth";
 
 function App() {
   const { token: isLoggedIn, isManager } = useSelector((state) => state.user);
   return (
     <Layout>
       <Routes>
-        {isManager && <Route path="/manager/*" element={<ManagerScreen />} />}
-
-        <Route path="/" exact element={<HomeScreen />} />
-        <Route path="/bikes/*" element={<Bikelist />} />
-
-        {!isLoggedIn && <Route path="/login/*" element={<LoginScreen />} />}
         <Route
-          path="*"
+          path="/manager/*"
           element={
-            !!isLoggedIn ? <NofoundScreen /> : <Navigate to={"/login"} />
+            <LoggedInAuthLayout>
+              <ManagerAuthLayout>
+                <ManagerScreen />
+              </ManagerAuthLayout>
+            </LoggedInAuthLayout>
           }
         />
+        <Route
+          path="/"
+          exact
+          element={
+            <LoggedInAuthLayout>
+              <HomeScreen />
+            </LoggedInAuthLayout>
+          }
+        />
+        <Route
+          path="/bikes/*"
+          element={
+            <LoggedInAuthLayout>
+              <Bikelist />
+            </LoggedInAuthLayout>
+          }
+        />
+        <Route path="/login/*" element={<LoginScreen />} />
+
+        <Route path="*" element={<NofoundScreen />} />
       </Routes>
     </Layout>
   );

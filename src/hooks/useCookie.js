@@ -4,7 +4,7 @@ const setItem = (key, value, numberOfDays) => {
   const now = new Date();
   // set the time to be now + numberOfDays
   now.setTime(now.getTime() + numberOfDays * 60 * 60 * 24 * 1000);
-  document.cookie = `${key}=${value};     expires=${now.toUTCString()}; path=/`;
+  document.cookie = `${key}=${value};expires=${now.toUTCString()}; path=/`;
 };
 
 const getItem = (key) =>
@@ -23,7 +23,8 @@ const useCookie = (key, defaultValue) => {
     setItem(key, JSON.stringify(value), numberOfDays || 1);
   };
   const eraseCookie = () => {
-    document.cookie = key + "=; Max-Age=0";
+    console.log("called");
+    document.cookie = key + "=; Max-Age=1";
   };
 
   return [JSON.parse(cookie), updateCookie, eraseCookie];
