@@ -18,7 +18,6 @@ jobs:
       - name: Install Packages and Build Application
         run: |
           npm install 
-          npm install
           npm build
       - name: Deploy
         uses: s0/git-publish-subdir-action@develop
